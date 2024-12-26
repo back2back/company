@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { getPublicPath } from '../utils/paths'
 
 const Clients = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -7,47 +8,47 @@ const Clients = () => {
   const clients = [
     {
       name: 'Bank of Alexandria',
-      image: '/images/42Bank-of-Alexandria-Grants-Access-to-Microfinance-for-First-Time-Ever-in-Egypt.jpg'
+      image: 'images/42Bank-of-Alexandria-Grants-Access-to-Microfinance-for-First-Time-Ever-in-Egypt.jpg'
     },
     {
       name: 'Mercedes-Benz',
-      image: '/images/Mercedes-Benz_logo_2.svg_-1024x740.png'
+      image: 'images/Mercedes-Benz_logo_2.svg_-1024x740.png'
     },
     {
       name: 'Client 3',
-      image: '/images/5e13af20313ae48c98ea082cd3920fab.jpg'
+      image: 'images/5e13af20313ae48c98ea082cd3920fab.jpg'
     },
     {
       name: 'Client 4',
-      image: '/images/954cf1214f02d50a6412c2594713ec01.jpg'
+      image: 'images/954cf1214f02d50a6412c2594713ec01.jpg'
     },
     {
       name: 'Client 5',
-      image: '/images/1979b890702075.5e1e3d7fc0124.jpg'
+      image: 'images/1979b890702075.5e1e3d7fc0124.jpg'
     },
     {
       name: 'Client 6',
-      image: '/images/images-1.png'
+      image: 'images/images-1.png'
     },
     {
       name: 'Client 7',
-      image: '/images/images-3.png'
+      image: 'images/images-3.png'
     },
     {
       name: 'Client 8',
-      image: '/images/images.jpg'
+      image: 'images/images.jpg'
     },
     {
       name: 'Client 9',
-      image: '/images/images.png'
+      image: 'images/images.png'
     },
     {
       name: 'Client 10',
-      image: '/images/mafia-701x1024.jpg'
+      image: 'images/mafia-701x1024.jpg'
     },
     {
       name: 'Client 11',
-      image: '/images/zrf-trq.jpg'
+      image: 'images/zrf-trq.jpg'
     }
   ]
 
@@ -90,7 +91,7 @@ const Clients = () => {
                   className="flex-shrink-0 w-[200px] h-[200px] flex items-center justify-center p-4 glass-panel"
                 >
                   <img
-                    src={client.image}
+                    src={getPublicPath(client.image)}
                     alt={client.name}
                     className="max-h-full max-w-full object-contain filter hover:grayscale-0 transition-all duration-300"
                   />
