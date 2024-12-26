@@ -49,27 +49,40 @@ Message: ${formData.message}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <motion.h1
-          className="text-4xl md:text-6xl font-bold gradient-text mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Contact Us
-        </motion.h1>
+        {/* Hero Section */}
+        <section className="mb-20">
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold gradient-text mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Get in Touch
+          </motion.h1>
+          <motion.p
+            className="text-xl text-gray-300 max-w-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </motion.p>
+        </section>
 
-        <motion.div
-          className="glass-panel p-8"
+        {/* Contact Form */}
+        <motion.section
+          className="grid grid-cols-1 md:grid-cols-2 gap-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="flex items-center text-white/70 text-sm">
-                  <UserIcon className="w-4 h-4 mr-2" />
-                  Name
+          {/* Form */}
+          <div className="glass-panel p-8 rounded-lg">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <UserIcon className="w-5 h-5 inline-block mr-2" />
+                  Your Name
                 </label>
                 <input
                   type="text"
@@ -77,81 +90,90 @@ Message: ${formData.message}
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full bg-secondary/50 border border-white/10 rounded-lg px-4 py-2 text-white"
-                  placeholder="Your name"
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="flex items-center text-white/70 text-sm">
-                  <PhoneIcon className="w-4 h-4 mr-2" />
-                  Mobile Number (Optional)
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <MailIcon className="w-5 h-5 inline-block mr-2" />
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <PhoneIcon className="w-5 h-5 inline-block mr-2" />
+                  Mobile Number
                 </label>
                 <input
                   type="tel"
                   name="mobile"
                   value={formData.mobile}
                   onChange={handleChange}
-                  className="w-full bg-secondary/50 border border-white/10 rounded-lg px-4 py-2 text-white"
-                  placeholder="Your mobile number (optional)"
+                  required
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <ChatAlt2Icon className="w-5 h-5 inline-block mr-2" />
+                  Your Message
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="4"
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium py-3 px-6 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <div className="glass-panel p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4 gradient-text">Contact Information</h3>
+              <div className="space-y-4">
+                <p className="flex items-center text-gray-300">
+                  <MailIcon className="w-5 h-5 mr-3 text-cyan-400" />
+                  info@back2back.tech
+                </p>
+                <p className="flex items-center text-gray-300">
+                  <PhoneIcon className="w-5 h-5 mr-3 text-cyan-400" />
+                  +20 123 456 7890
+                </p>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="flex items-center text-white/70 text-sm">
-                <MailIcon className="w-4 h-4 mr-2" />
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full bg-secondary/50 border border-white/10 rounded-lg px-4 py-2 text-white"
-                placeholder="Your email"
-              />
+            <div className="glass-panel p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4 gradient-text">Office Hours</h3>
+              <p className="text-gray-300">
+                Monday - Friday: 9:00 AM - 6:00 PM<br />
+                Saturday: 10:00 AM - 4:00 PM<br />
+                Sunday: Closed
+              </p>
             </div>
-
-            <div className="space-y-2">
-              <label className="flex items-center text-white/70 text-sm">
-                <ChatAlt2Icon className="w-4 h-4 mr-2" />
-                Message
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="4"
-                className="w-full bg-secondary/50 border border-white/10 rounded-lg px-4 py-2 text-white"
-                placeholder="Your message"
-              />
-            </div>
-
-            <motion.button
-              type="submit"
-              className="btn-primary w-full md:w-auto"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Send Message
-            </motion.button>
-          </form>
-
-          <div className="mt-8 pt-8 border-t border-white/10">
-            <p className="text-white/70 text-center">
-              You can also reach us directly at{' '}
-              <a
-                href="mailto:info@back2back.tech"
-                className="text-accent hover:text-accent/80 transition-colors"
-              >
-                info@back2back.tech
-              </a>
-            </p>
           </div>
-        </motion.div>
+        </motion.section>
       </motion.div>
     </div>
   )

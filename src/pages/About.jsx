@@ -49,55 +49,42 @@ const About = () => {
             className="text-4xl md:text-6xl font-bold gradient-text mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            About Us
+            About Back to Back
           </motion.h1>
-          
-          <motion.div
-            className="glass-panel p-8"
+          <motion.p
+            className="text-xl text-gray-300 max-w-3xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <p className="text-lg text-white/80 leading-relaxed mb-6">
-              Back to Back is a pioneering force in game development and 3D production. 
-              We blend creativity with cutting-edge technology to create immersive digital experiences 
-              that push the boundaries of what's possible.
-            </p>
-            <p className="text-lg text-white/80 leading-relaxed">
-              Our team of passionate developers, artists, and designers work together 
-              to bring innovative ideas to life, whether it's through captivating games, 
-              stunning 3D visualizations, or groundbreaking VR experiences.
-            </p>
-          </motion.div>
+            We are a passionate team of developers, artists, and designers dedicated to creating exceptional digital experiences. Our expertise spans game development, 3D production, and VR/AR solutions.
+          </motion.p>
         </section>
 
         {/* Features Section */}
         <section className="mb-20">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold gradient-text mb-8"
+            className="text-3xl md:text-4xl font-bold mb-12 gradient-text"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
             What Sets Us Apart
           </motion.h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                className="glass-panel p-6"
+                className="glass-panel p-6 rounded-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
               >
-                <div className="text-accent mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-white/70">{feature.description}</p>
+                <div className="text-cyan-400 mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-300">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -106,25 +93,24 @@ const About = () => {
         {/* Team Section */}
         <section>
           <motion.h2
-            className="text-3xl md:text-4xl font-bold gradient-text mb-8"
+            className="text-3xl md:text-4xl font-bold mb-12 gradient-text"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
           >
             Our Team
           </motion.h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
               <motion.div
                 key={member.name}
-                className="glass-panel p-6"
+                className="glass-panel p-6 rounded-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.8, delay: 1.6 + index * 0.2 }}
               >
-                <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                <p className="text-white/70">{member.description}</p>
+                <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                <p className="text-gray-300">{member.description}</p>
               </motion.div>
             ))}
           </div>
