@@ -44,26 +44,15 @@ const About = () => {
             About <span className="text-cyan-500">Us</span>
           </h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-cyan-500">
-                Our Vision
-              </h2>
-              <p className="text-gray-300 text-base md:text-lg mb-6">
-                At Back2Back, we strive to create innovative digital solutions that make a difference.
-                Our passion for technology and creativity drives us to deliver exceptional results
-                for our clients.
-              </p>
-            </div>
-            <div className="order-first md:order-last">
-              <div className="aspect-video bg-cyan-500/20 rounded-lg overflow-hidden">
-                <img
-                  src="/path-to-your-image.jpg"
-                  alt="Our Vision"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-cyan-500">
+              Our Vision
+            </h2>
+            <p className="text-gray-300 text-base md:text-lg mb-6">
+              At Back2Back, we strive to create innovative digital solutions that make a difference.
+              Our passion for technology and creativity drives us to deliver exceptional results
+              for our clients.
+            </p>
           </div>
 
           <div className="space-y-8">

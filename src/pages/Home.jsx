@@ -52,59 +52,36 @@ const Home = () => {
         transition={{ duration: 0.8, delay: 2 }}
       >
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-20 md:py-32">
+        <section className="relative h-screen flex items-center justify-center px-4">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary to-secondary opacity-90" />
-            {/* Animated Background Elements */}
-            {[...Array(5)].map((_, index) => (
-              <motion.div
-                key={index}
-                className="absolute w-[40vw] h-[40vw] rounded-full bg-cyan-500/20 blur-3xl"
-                initial={{
-                  x: Math.random() * 100 - 50 + '%',
-                  y: Math.random() * 100 - 50 + '%',
-                  scale: 0,
-                }}
-                animate={{
-                  x: [Math.random() * 100 - 50 + '%', Math.random() * 100 - 50 + '%'],
-                  y: [Math.random() * 100 - 50 + '%', Math.random() * 100 - 50 + '%'],
-                  scale: [0.5, 1.5],
-                }}
-                transition={{
-                  duration: 20 + index * 5,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  delay: index * 0.2,
-                }}
-              />
-            ))}
+            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary to-secondary" />
           </div>
-
-          <div className="relative z-10 max-w-7xl mx-auto text-center">
+          
+          <div className="relative z-10 max-w-7xl mx-auto text-center px-4">
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.4 }}
             >
               Welcome to <span className="text-cyan-500">Back2Back</span>
             </motion.h1>
-
+            
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto px-4"
+              className="text-lg sm:text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.6 }}
             >
               We create innovative solutions for businesses and individuals,
               turning ideas into reality through cutting-edge technology.
             </motion.p>
-
+            
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link
                 to="/portfolio"
@@ -120,23 +97,59 @@ const Home = () => {
               </Link>
             </motion.div>
           </div>
+
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            {[...Array(5)].map((_, index) => (
+              <motion.div
+                key={index}
+                className="absolute w-[40vw] h-[40vw] rounded-full bg-cyan-500/20 blur-3xl"
+                initial={{
+                  x: Math.random() * 100 - 50 + '%',
+                  y: Math.random() * 100 - 50 + '%',
+                  scale: 0,
+                }}
+                animate={{
+                  x: [
+                    Math.random() * 100 - 50 + '%',
+                    Math.random() * 100 - 50 + '%',
+                  ],
+                  y: [
+                    Math.random() * 100 - 50 + '%',
+                    Math.random() * 100 - 50 + '%',
+                  ],
+                  scale: [0.5, 1.5],
+                }}
+                transition={{
+                  duration: 20 + index * 5,
+                  repeat: Infinity,
+                  repeatType: 'reverse',
+                  delay: 3 + index * 0.2,
+                }}
+              />
+            ))}
+          </div>
         </section>
 
         {/* Features Section */}
         <section className="py-20 px-4 bg-secondary">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <motion.h2
+              className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               What We <span className="text-cyan-500">Offer</span>
-            </h2>
-
+            </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
                 <motion.div
                   key={service.title}
+                  className="glass-panel p-6 rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="glass-panel p-6 rounded-lg"
+                  transition={{ duration: 0.8, delay: 0.2 * index }}
                 >
                   <div className="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-4">
                     {service.icon}
