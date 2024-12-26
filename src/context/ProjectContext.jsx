@@ -1,58 +1,81 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react';
+import { projectService } from '../firebase/projectService';
 
-const ProjectContext = createContext()
+const ProjectContext = createContext();
 
 export const useProjects = () => {
-  const context = useContext(ProjectContext)
+  const context = useContext(ProjectContext);
   if (!context) {
-    throw new Error('useProjects must be used within a ProjectProvider')
+    throw new Error('useProjects must be used within a ProjectProvider');
   }
-  return context
-}
+  return context;
+};
 
 export const ProjectProvider = ({ children }) => {
-  // Initialize state from localStorage or empty array
-  const [projects, setProjects] = useState(() => {
-    const savedProjects = localStorage.getItem('projects')
-    return savedProjects ? JSON.parse(savedProjects) : []
-  })
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Save to localStorage whenever projects change
+  // Load projects from Firebase
   useEffect(() => {
-    localStorage.setItem('projects', JSON.stringify(projects))
-  }, [projects])
+    const loadProjects = async () => {
+      try {
+        const data = await projectService.getProjects();
+        setProjects(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const addProject = (project) => {
-    const newProject = {
-      ...project,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString()
+    loadProjects();
+  }, []);
+
+  const addProject = async (project) => {
+    try {
+      const newProject = await projectService.addProject(project);
+      setProjects(prev => [newProject, ...prev]);
+      return newProject;
+    } catch (err) {
+      setError(err.message);
+      throw err;
     }
-    setProjects(prevProjects => [...prevProjects, newProject])
-  }
+  };
 
-  const updateProject = (id, updatedProject) => {
-    setProjects(prevProjects =>
-      prevProjects.map(project =>
-        project.id === id
-          ? { ...project, ...updatedProject, updatedAt: new Date().toISOString() }
-          : project
-      )
-    )
-  }
+  const updateProject = async (id, updatedProject) => {
+    try {
+      const updated = await projectService.updateProject(id, updatedProject);
+      setProjects(prev =>
+        prev.map(project => (project.id === id ? updated : project))
+      );
+      return updated;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
 
-  const deleteProject = (id) => {
-    setProjects(prevProjects => prevProjects.filter(project => project.id !== id))
-  }
+  const deleteProject = async (id) => {
+    try {
+      await projectService.deleteProject(id);
+      setProjects(prev => prev.filter(project => project.id !== id));
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
 
   const getProject = (id) => {
-    return projects.find(project => project.id === id)
-  }
+    return projects.find(project => project.id === id);
+  };
 
   return (
     <ProjectContext.Provider
       value={{
         projects,
+        loading,
+        error,
         addProject,
         updateProject,
         deleteProject,
@@ -61,7 +84,7 @@ export const ProjectProvider = ({ children }) => {
     >
       {children}
     </ProjectContext.Provider>
-  )
-}
+  );
+};
 
-export default ProjectContext
+export default ProjectContext;

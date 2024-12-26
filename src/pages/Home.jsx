@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import LoadingScreen from '../components/LoadingScreen'
 import Clients from '../components/Clients'
 
@@ -47,12 +48,12 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 2.8 }}
             >
-              <a
-                href="/portfolio"
+              <Link
+                to="/portfolio"
                 className="btn-primary"
               >
                 Explore Our Work
-              </a>
+              </Link>
             </motion.div>
           </div>
 

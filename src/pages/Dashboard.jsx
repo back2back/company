@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import { useProjects } from '../context/ProjectContext'
 
 const Dashboard = () => {
-  const { projects, addProject, updateProject, deleteProject } = useProjects()
   const [isAddingProject, setIsAddingProject] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const fileInputRef = useRef(null)
   const [selectedImages, setSelectedImages] = useState([])
   const [formData, setFormData] = useState({
@@ -18,6 +18,33 @@ const Dashboard = () => {
     githubUrl: '',
     liveUrl: ''
   })
+
+  const { projects, loading, error, addProject, updateProject, deleteProject } = useProjects()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-16 px-4">
+        <div className="max-w-7xl mx-auto py-8">
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyan-500"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen pt-16 px-4">
+        <div className="max-w-7xl mx-auto py-8">
+          <div className="glass-panel p-8 text-center">
+            <h2 className="text-2xl font-bold text-red-500 mb-4">Error</h2>
+            <p className="text-gray-300">{error}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
@@ -109,21 +136,43 @@ const Dashboard = () => {
     setIsAddingProject(false)
   }
 
+  const exportProjects = () => {
+    const projectsData = JSON.parse(localStorage.getItem('projects') || '[]');
+    const dataStr = JSON.stringify(projectsData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'projects.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="min-h-screen pt-16 px-4">
       <div className="max-w-7xl mx-auto py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold gradient-text">Project Dashboard</h1>
-          {!isAddingProject && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
-              onClick={() => setIsAddingProject(true)}
+          <h1 className="text-3xl font-bold gradient-text">Dashboard</h1>
+          <div className="space-x-4">
+            <button
+              onClick={exportProjects}
+              className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
             >
-              Add New Project
-            </motion.button>
-          )}
+              Export Projects
+            </button>
+            {!isAddingProject && (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary"
+                onClick={() => setIsAddingProject(true)}
+              >
+                Add New Project
+              </motion.button>
+            )}
+          </div>
         </div>
 
         {isAddingProject && (
