@@ -20,9 +20,12 @@ export const ProjectProvider = ({ children }) => {
   useEffect(() => {
     const loadProjects = async () => {
       try {
+        console.log('Loading projects from Firebase...');
         const data = await projectService.getProjects();
+        console.log('Projects loaded:', data);
         setProjects(data);
       } catch (err) {
+        console.error('Error loading projects:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -34,10 +37,13 @@ export const ProjectProvider = ({ children }) => {
 
   const addProject = async (project) => {
     try {
+      console.log('Adding project to Firebase:', project);
       const newProject = await projectService.addProject(project);
+      console.log('Project added successfully:', newProject);
       setProjects(prev => [newProject, ...prev]);
       return newProject;
     } catch (err) {
+      console.error('Error adding project:', err);
       setError(err.message);
       throw err;
     }
@@ -45,12 +51,15 @@ export const ProjectProvider = ({ children }) => {
 
   const updateProject = async (id, updatedProject) => {
     try {
+      console.log('Updating project in Firebase:', id, updatedProject);
       const updated = await projectService.updateProject(id, updatedProject);
+      console.log('Project updated successfully:', updated);
       setProjects(prev =>
         prev.map(project => (project.id === id ? updated : project))
       );
       return updated;
     } catch (err) {
+      console.error('Error updating project:', err);
       setError(err.message);
       throw err;
     }
@@ -58,9 +67,12 @@ export const ProjectProvider = ({ children }) => {
 
   const deleteProject = async (id) => {
     try {
+      console.log('Deleting project from Firebase:', id);
       await projectService.deleteProject(id);
+      console.log('Project deleted successfully');
       setProjects(prev => prev.filter(project => project.id !== id));
     } catch (err) {
+      console.error('Error deleting project:', err);
       setError(err.message);
       throw err;
     }

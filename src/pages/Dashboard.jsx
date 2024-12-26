@@ -75,33 +75,38 @@ const Dashboard = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const projectData = {
-      ...formData,
-      technologies: formData.technologies.split(',').map(tech => tech.trim()).filter(Boolean)
-    }
+    try {
+      const projectData = {
+        ...formData,
+        technologies: formData.technologies.split(',').map(tech => tech.trim()).filter(Boolean)
+      }
 
-    if (editingProject) {
-      updateProject(editingProject.id, projectData)
-      setEditingProject(null)
-    } else {
-      addProject(projectData)
-    }
+      if (editingProject) {
+        await updateProject(editingProject.id, projectData)
+        setEditingProject(null)
+      } else {
+        await addProject(projectData)
+      }
 
-    // Reset form
-    setFormData({
-      title: '',
-      description: '',
-      images: [],
-      category: 'game',
-      status: 'in-progress',
-      technologies: '',
-      githubUrl: '',
-      liveUrl: ''
-    })
-    setSelectedImages([])
-    setIsAddingProject(false)
+      // Reset form
+      setFormData({
+        title: '',
+        description: '',
+        images: [],
+        category: 'game',
+        status: 'in-progress',
+        technologies: '',
+        githubUrl: '',
+        liveUrl: ''
+      })
+      setSelectedImages([])
+      setIsAddingProject(false)
+    } catch (error) {
+      console.error('Error saving project:', error)
+      alert('Failed to save project. Please try again.')
+    }
   }
 
   const handleEdit = (project) => {
