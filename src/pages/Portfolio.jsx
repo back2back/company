@@ -1,82 +1,106 @@
-import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { useProjects } from '../context/ProjectContext'
 
 const Portfolio = () => {
-  const { projects } = useProjects()
+  const { projects, loading } = useProjects()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyan-500"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen pt-16 px-4">
-      <motion.div
-        className="max-w-7xl mx-auto py-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="text-4xl md:text-5xl font-bold mb-8 gradient-text">Portfolio</h1>
+    <div className="min-h-screen pt-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+          Our Projects
+        </h1>
         
         {projects.length === 0 ? (
-          <div className="text-center text-white/70 py-20">
-            No projects to display yet.
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-400">No projects available yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map(project => (
-              <Link to={`/portfolio/${project.id}`} key={project.id}>
-                <motion.div
-                  className="glass-panel overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {project.images && project.images.length > 0 && (
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={project.images[0]}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="glass-panel group relative overflow-hidden rounded-lg"
+              >
+                <div className="aspect-video overflow-hidden">
+                  {project.images && project.images.length > 0 ? (
+                    <img
+                      src={project.images[0]}
+                      alt={project.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                      <span className="text-gray-500">No image available</span>
                     </div>
                   )}
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-cyan-500 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
                   
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-white/70 mb-4 line-clamp-2">{project.description}</p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies?.slice(0, 3).map((tech, index) => (
-                        <span
-                          key={index}
-                          className="px-2 py-1 bg-accent/20 text-accent text-sm rounded"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies?.length > 3 && (
-                        <span className="px-2 py-1 bg-accent/20 text-accent text-sm rounded">
-                          +{project.technologies.length - 3} more
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                      <span className={`px-2 py-1 rounded text-sm ${
-                        project.status === 'completed' ? 'bg-green-500/20 text-green-500' :
-                        project.status === 'in-progress' ? 'bg-yellow-500/20 text-yellow-500' :
-                        'bg-blue-500/20 text-blue-500'
-                      }`}>
-                        {project.status}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 text-sm bg-cyan-500/20 text-cyan-500 rounded"
+                      >
+                        {tech}
                       </span>
-                      <span className="text-accent">View Details →</span>
-                    </div>
+                    ))}
                   </div>
-                </motion.div>
-              </Link>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-cyan-500">
+                      {project.category}
+                    </span>
+                    <Link
+                      to={`/portfolio/${project.id}`}
+                      className="inline-flex items-center text-cyan-500 hover:text-cyan-400"
+                    >
+                      View Details
+                      <svg
+                        className="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         )}
-      </motion.div>
+      </div>
     </div>
   )
 }
