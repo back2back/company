@@ -61,16 +61,6 @@ const Contact = () => {
                 </p>
               </div>
             </div>
-
-            <div className="order-first md:order-last">
-              <div className="aspect-square bg-cyan-500/20 rounded-lg overflow-hidden">
-                <img
-                  src="/path-to-contact-image.jpg"
-                  alt="Contact Us"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
